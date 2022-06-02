@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  checker:
+    container_name: checker
+    build: .
+    volumes:
+      - /srv/TeleSoft/sessions/:/sessions/
+

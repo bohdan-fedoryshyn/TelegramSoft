@@ -1,0 +1,10 @@
+groups:
+  - name: example
+    rules:
+    - alert: cpuUsage
+      expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{job='node_exporter', mode='idle'}[5m])) * 100) > 25
+      for: 1m
+      labels:
+	severity: critical
+      anotattions:
+	summary: Machine under healvy load

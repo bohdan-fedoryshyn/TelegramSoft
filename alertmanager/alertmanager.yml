@@ -1,0 +1,20 @@
+global:
+  # The smarthost and SMTP sender used for mail notifications.
+  smtp_smarthost: 'localhost:25'
+  smtp_from: 'alertmanager@example.org'
+  smtp_auth_username: 'alertmanager'
+  smtp_auth_password: 'password'
+
+# The directory from which notification templates are read.
+templates:
+  - '/etc/alertmanager/template/*.tmpl'
+
+route:
+  repeat_interval: 1m
+  reciver: team
+
+receivers:
+  - name: 'team'
+    hook_configs:
+      - api_url: 'https://webhook.site/c7d0b562-79b8-490b-8efe-1c3ea9202b86'
+    send_resolved: true

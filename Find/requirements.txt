@@ -1,0 +1,3 @@
+telethon==1.23.0
+PySocks
+pymysql

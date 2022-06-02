@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Alert manager
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - 10.0.65.94:9093
+
+#rule_files:
+rule_files:
+  - "/etc/prometheus/alert.rules"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['10.0.65.94:9090']
+
+  - job_name: 'node_exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['10.0.65.97:9100']
+  - job_name: 'python_exporter'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['10.0.65.97:8000']

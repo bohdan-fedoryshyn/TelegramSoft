@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  spammer:
+    container_name: spammer
+    build: .
+    volumes:
+      - /srv/TeleSoft/sessions/:/sessions/
+

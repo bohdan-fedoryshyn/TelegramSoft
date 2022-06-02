@@ -1,0 +1,56 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  ## DataBase
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "core"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "password"
+
+
+  ### My services
+
+  account-controler:
+    image: 'account-controler:latest'
+    restart: on-failure
+    container_name: follow
+
+    volumes:
+      - /srv/TeleSoft/sessions/:/sessions/
+
+  auto_reger:
+    build:
+      context: ./
+      dockerfile: Register/Dockerfile
+    container_name: auto_reger
+    volumes:
+        - /srv/TeleSoft/sessions/:/sessions/
+         - /c/Users/bohdan.fedoryshyn/TgSoft/:/sessions/
+
+  follow:
+    image: 'follow:latest'
+    build:
+      context: ./Follow
+      dockerfile: Dockerfile
+    restart: on-failure
+    container_name: follow
+    volumes:
+      - /srv/TeleSoft/sessions/:/sessions/
+
+
+  spammer:
+    image: 'follow:latest'
+    build:
+      context: ./Spam
+      dockerfile: Dockerfile
+    restart: on-failure
+    container_name: spammer
+    volumes:
+      - /srv/TeleSoft/sessions/:/sessions/
